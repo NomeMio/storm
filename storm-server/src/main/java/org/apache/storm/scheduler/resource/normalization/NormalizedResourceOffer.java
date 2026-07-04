@@ -212,3 +212,4 @@ public class NormalizedResourceOffer implements NormalizedResourcesWithMemory {
         }
     }
 }
+// Trying to trigger sonarcloud

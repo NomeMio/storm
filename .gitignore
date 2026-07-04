@@ -71,3 +71,9 @@ storm-webapp/node/
 tmp
 
 storm-client/bin/
+
+
+
+# my ignores
+
+my-tests/info/*
