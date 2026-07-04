@@ -69,3 +69,5 @@ install-shade.txt
 node_modules/
 storm-webapp/node/
 tmp
+
+storm-client/bin/
