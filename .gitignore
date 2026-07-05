@@ -77,3 +77,7 @@ storm-client/bin/
 # my ignores
 
 my-tests/info/*
+my-tests/.env
+
+**/.env
+*/.env

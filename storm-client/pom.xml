@@ -33,6 +33,10 @@
     <packaging>jar</packaging>
     <description>The client side (including worker) of Storm implementations.</description>
 
+    <properties>
+        <jacoco.report.includes>**/*.class</jacoco.report.includes>
+    </properties>
+
     <dependencies>
         <!-- logging -->
 
@@ -280,6 +284,54 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.12</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals><goal>prepare-agent</goal></goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals><goal>report</goal></goals>
+                        <configuration>
+                            <includes>
+                                <include>${jacoco.report.includes}</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.17.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.2.2</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <testPlugin>junit5</testPlugin>
+                    <parseSurefireConfig>false</parseSurefireConfig>
+                    <jvmArgs>
+                        <jvmArg>--add-opens=java.base/java.lang=ALL-UNNAMED</jvmArg>
+                        <jvmArg>--add-opens=java.base/java.lang.invoke=ALL-UNNAMED</jvmArg>
+                        <jvmArg>--add-opens=java.base/java.nio=ALL-UNNAMED</jvmArg>
+                        <jvmArg>--add-opens=java.base/java.util=ALL-UNNAMED</jvmArg>
+                        <jvmArg>-XX:-TieredCompilation</jvmArg>
+                        <jvmArg>-Xmx2g</jvmArg>
+                        <jvmArg>-Djdk.attach.allowAttachSelf=true</jvmArg>
+                    </jvmArgs>
+                    <useClasspathJar>false</useClasspathJar>
+                    <verbose>true</verbose>
+                </configuration>
             </plugin>
         </plugins>
     </build>
